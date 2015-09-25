@@ -34,6 +34,41 @@ You could also take a look at [config.ru](config.ru) as an example, which
 also uses [Swagger](https://helloreverb.com/developers/swagger) to generate
 API documentation.
 
+### Using multiple extensions with custom controller
+
+This is effectively the same as using Jellyfish::Sinatra extension.
+Note that the controller should be assigned lastly in order to include
+modules remembered in controller_include.
+
+``` ruby
+require 'jellyfish-contrib'
+class Tank
+  include Jellyfish
+  class MyController < Jellyfish::Controller
+    include Jellyfish::MultiActions
+  end
+  controller_include NormalizedParams, NormalizedPath
+  controller MyController
+
+  get do # wildcard before filter
+    @state = 'jumps'
+  end
+  get %r{^/(?<id>\d+)$} do
+    "Jelly ##{params[:id]} #{@state}.\n"
+  end
+end
+use Rack::ContentLength
+use Rack::ContentType, 'text/plain'
+run Tank.new
+```
+
+<!---
+GET /123
+[200,
+ {'Content-Length' => '18', 'Content-Type' => 'text/plain'},
+ ["Jelly #123 jumps.\n"]]
+-->
+
 ### Extension: MultiActions (Filters)
 
 ``` ruby
@@ -59,6 +94,35 @@ GET /123
 [200,
  {'Content-Length' => '13', 'Content-Type' => 'text/plain'},
  ["Jelly jumps.\n"]]
+-->
+
+### Halt in before action
+
+``` ruby
+require 'jellyfish-contrib'
+class Tank
+  include Jellyfish
+  controller_include Jellyfish::MultiActions
+
+  get do # wildcard before filter
+    body "Done!\n"
+    halt
+  end
+  get '/' do
+    "Never reach.\n"
+  end
+end
+
+use Rack::ContentLength
+use Rack::ContentType, 'text/plain'
+run Tank.new
+```
+
+<!---
+GET /status
+[200,
+ {'Content-Length' => '6', 'Content-Type' => 'text/plain'},
+ ["Done!\n"]]
 -->
 
 ### Extension: Sinatra flavoured controller
@@ -94,71 +158,7 @@ GET /123
  ["Jelly #123 jumps.\n"]]
 -->
 
-### Extension: Using multiple extensions with custom controller
-
-This is effectively the same as using Jellyfish::Sinatra extension.
-Note that the controller should be assigned lastly in order to include
-modules remembered in controller_include.
-
-``` ruby
-require 'jellyfish-contrib'
-class Tank
-  include Jellyfish
-  class MyController < Jellyfish::Controller
-    include Jellyfish::MultiActions
-  end
-  controller_include NormalizedParams, NormalizedPath
-  controller MyController
-
-  get do # wildcard before filter
-    @state = 'jumps'
-  end
-  get %r{^/(?<id>\d+)$} do
-    "Jelly ##{params[:id]} #{@state}.\n"
-  end
-end
-use Rack::ContentLength
-use Rack::ContentType, 'text/plain'
-run Tank.new
-```
-
-<!---
-GET /123
-[200,
- {'Content-Length' => '18', 'Content-Type' => 'text/plain'},
- ["Jelly #123 jumps.\n"]]
--->
-
-### Halt in before action
-
-``` ruby
-require 'jellyfish-contrib'
-class Tank
-  include Jellyfish
-  controller_include Jellyfish::MultiActions
-
-  get do # wildcard before filter
-    body "Done!\n"
-    halt
-  end
-  get '/' do
-    "Never reach.\n"
-  end
-end
-
-use Rack::ContentLength
-use Rack::ContentType, 'text/plain'
-run Tank.new
-```
-
-<!---
-GET /status
-[200,
- {'Content-Length' => '6', 'Content-Type' => 'text/plain'},
- ["Done!\n"]]
--->
-
-### Use Swagger to generate API documentation
+### Extension: Swagger API documentation
 
 For a complete example, checkout [config.ru](config.ru).
 
