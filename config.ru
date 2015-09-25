@@ -87,7 +87,7 @@ class Jelly
   end
 end
 
-App = Rack::Builder.app do
+App = Jellyfish::Builder.app do
   use Rack::CommonLogger
   use Rack::Chunked
   use Rack::ContentLength
