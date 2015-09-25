@@ -2,8 +2,6 @@
 
 by Lin Jen-Shin ([godfat](http://godfat.org))
 
-![logo](https://github.com/godfat/jellyfish/raw/master/jellyfish.png)
-
 ## LINKS:
 
 * [github](https://github.com/godfat/jellyfish-contrib)
