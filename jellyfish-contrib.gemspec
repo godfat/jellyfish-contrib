@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
-# stub: jellyfish-contrib 1.0.0 ruby lib
+# stub: jellyfish-contrib 1.1.0 ruby lib
 
 Gem::Specification.new do |s|
   s.name = "jellyfish-contrib"
-  s.version = "1.0.0"
+  s.version = "1.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
@@ -14,10 +14,13 @@ Gem::Specification.new do |s|
   s.files = [
   ".gitmodules",
   ".travis.yml",
+  "CHANGES.md",
+  "Gemfile",
   "LICENSE",
   "README.md",
   "Rakefile",
   "config.ru",
+  "jellyfish-contrib.gemspec",
   "lib/jellyfish-contrib.rb",
   "lib/jellyfish/multi_actions.rb",
   "lib/jellyfish/sinatra.rb",

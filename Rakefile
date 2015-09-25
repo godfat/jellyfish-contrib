@@ -8,6 +8,6 @@ end
 
 Gemgem.init(dir) do |s|
   s.name    = 'jellyfish-contrib'
-  s.version = '1.0.0'
+  s.version = '1.1.0'
   %w[jellyfish].each{ |g| s.add_runtime_dependency(g) }
 end
