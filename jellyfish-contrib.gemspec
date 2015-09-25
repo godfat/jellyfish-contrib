@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.description = "Extra [Jellyfish](https://github.com/godfat/jellyfish) extensions."
   s.email = ["godfat (XD) godfat.org"]
   s.files = [
+  ".gitignore",
   ".gitmodules",
   ".travis.yml",
   "CHANGES.md",
