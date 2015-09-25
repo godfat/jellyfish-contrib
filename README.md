@@ -189,7 +189,6 @@ GET /swagger
 ## CONTRIBUTORS:
 
 * Fumin (@fumin)
-* Jason R. Clark (@jasonrclark)
 * Lin Jen-Shin (@godfat)
 
 ## LICENSE:
