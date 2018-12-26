@@ -28,7 +28,7 @@ describe Jellyfish do
     status, _, body = get('/swagger/users', app)
     status                 .should.eq 200
     res = Jellyfish::Json.decode(body.to_a.join)
-    res['basePath']    .should.eq 'https://localhost:8080'
+    res['basePath']    .should.eq 'http://localhost:8080'
     res['resourcePath'].should.eq '/users'
     res['apis']        .should.eq \
       [{"path"=>"/users",
